@@ -20,8 +20,7 @@ Incorrect guesses remaining: 6
 Guessed letters: ['T', 'P']
 
 Correct response:"""
-
-- Qwen2.5-0.5B
+## Qwen2.5-0.5B
 limit to 1 new token
 limit to 5 new token
-- Qwen2.5-0.5B-Instruct
+## Qwen2.5-0.5B-Instruct
