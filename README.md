@@ -29,6 +29,7 @@ Guessed letters: ['T', 'P']
 Correct response:
 
 ```
+Only single letter guess is follow instead of full word guess is for simple style control
 
 **Note:** This prompt is designed for a single-token output. Set `max_new_tokens = 1`.  
 If `max_new_tokens` is set to 64 or higher, small LLMs often produce unnecessary text.
@@ -47,7 +48,19 @@ Assistant: To solve this Hangman game, I need to analyze the current state of th
 ```
 
 ---
+## Pre-trained Model Testing
 
-## Model Notes
-- **Qwen2.5-0.5B**
-- **Qwen2.5-0.5B-Instruct**
+**Test dataset size:** 10,429 samples  
+
+### Guess Distribution (in %)
+
+| Category                        | Qwen2.5-0.5B | Qwen2.5-0.5B-Instruct |
+|---------------------------------|--------------|------------------------|
+| Already guessed                 | 73.83%       | 84.94%                 |
+| Non-alphabetic guess            | 26.06%       | 2.73%                  |
+| Guess is not a single character | —            | 9.95%                  |
+| Guess empty                     | —            | 1.61%                  |
+| Guess is not a character in word| 0.08%        | 0.66%                  |
+| Correct guess                   | 0.03%        | 0.11%                  |
+
+---
