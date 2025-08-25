@@ -48,11 +48,11 @@ Assistant: To solve this Hangman game, I need to analyze the current state of th
 ```
 
 ---
-## Pre-trained Model Testing
+## Model Testing
 
 **Test dataset size:** 10,429 samples  
 
-### Guess Distribution (in %)
+### Pre-trained Model Guess Distribution (in %)
 
 | Category                        | Qwen2.5-0.5B | Qwen2.5-0.5B-Instruct |
 |---------------------------------|--------------|------------------------|
