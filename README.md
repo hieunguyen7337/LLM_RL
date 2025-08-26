@@ -1,11 +1,11 @@
 # LLM_RL
-Apply RL techniques to small LLMs like **Qwen3-0.6B** or **Gemma 3-270M**.
+Apply RL techniques to small LLMs
 
 ---
 
-## Hangman Game
+# A. Hangman Game
 
-### Non-thinking / Non-reasoning Prompt
+## 1. Non-thinking / Non-reasoning Prompt
 The following prompt form is used as the input:
 
 ```
@@ -46,11 +46,38 @@ Assistant: To solve this Hangman game, I need to analyze the current state of th
 
 1. **Current State**: The word currently contains underscores (_) for each of its 8 letters.
 ```
+### a. Model Training
+
+#### GRPO
+
+#### Qwen2.5-0.5B-Instruct-GRPO_1
+**Note:** small training size due to GPU limitation
+
+**Train dataset size:** 1,825 samples (from 500 words)
+
+**Number of Epoch:** 3 (default)
+
+**Generation per sample:** 16
+
+**Time taken on T4 Colab GPU:** ~1h15m
+
+**Rewards:** in [-1, 1].
+- +0.8  correct new reveal (plus +0.2 per extra same-letter reveal)
+- +0.1  wrong letter
+- -0.5  already guessed
+- -1.0  no alphabetic output
+- -0.6  more than one alphabetic char generated
+
+![Training Progress](images/Qwen2.5-0.5B-Instruct-GRPO_1.png)
+
+During training, the average reward increased but remained in the -0.9 range.  
+This suggests that PPO may perform better, especially given the prompt design is restricted to generating only one new token.
 
 ---
-## Model Testing
 
-**Test dataset size:** 10,429 samples  
+### b. Model Testing
+
+**Test dataset size:** 10,429 samples (from 2444 words different from words for training)
 
 ### Pre-trained Model Guess Distribution (in %)
 
@@ -62,5 +89,26 @@ Assistant: To solve this Hangman game, I need to analyze the current state of th
 | Guess empty                     | —            | 1.61%                  |
 | Guess is not a character in word| 0.08%        | 0.66%                  |
 | Correct guess                   | 0.03%        | 0.11%                  |
+
+### Post RL Model Guess Distribution (in %)
+
+| Category                        | Qwen2.5-0.5B-Instruct-GRPO_1|
+|---------------------------------|------------------------|
+| Already guessed                 | 17.01%                 |
+| Non-alphabetic guess            | 2.3%                   |
+| Guess is not a single character | 78.39%                 |
+| Guess empty                     | 2.26%                  |
+| Guess is not a character in word| 0.04%                  |
+| Correct guess                   | -                      |
+
+### c. Future Work
+- Extend training with larger datasets.  
+- Refine and adjust the reward function.  
+- Train on test-set words for in-distribution evaluation  
+  *(generalization is limited due to resource constraints).*  
+- Explore alternative methods such as SFT and PPO.  
+- Experiment with additional models.  
+- Test different prompt formats.  
+- Modify prompts to allow reasoning-based responses.
 
 ---
